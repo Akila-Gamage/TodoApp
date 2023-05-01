@@ -36,4 +36,37 @@ app.post('/',async (req, res) => { const todoTask = new TodoTask({
             res.redirect("/");
     } });
 
+app.route("/remove/:id").get(async(req, res) => { const id = req.params.id;
+    await TodoTask.findByIdAndRemove(id);
+    try {
+            res.redirect("/");
+        }
+    catch (err) {
+            res.send(500, err);
+            res.redirect("/");
+    } });
+
+app
+    .route("/edit/:id")
+    .get(async(req, res) => {
+        const id = req.params.id;
+        try {
+            const taskedits = await TodoTask.find({},);
+            res.render("todoEdit.ejs", { todoTasks: taskedits, idTask: id }); 
+        } catch (err) {
+            res.send(500, err);
+            res.redirect("/");
+        }
+    })
+    .post(async(req, res) => {
+        const id = req.params.id;
+        await TodoTask.findByIdAndUpdate(id, { content: req.body.content }); 
+        try {
+          res.redirect("/");
+        } catch (err) {
+          res.send(500, err);
+          res.redirect("/");
+        }
+    });
+
 // app.listen(3000, () => console.log("Server up and running"));
