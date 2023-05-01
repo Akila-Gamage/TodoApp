@@ -19,9 +19,12 @@ mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true })
 
 app.set("view engine", "ejs");
 
-app.get('/', (req, res) => {
-    res.render('todo.ejs');
-});
+app.get('/', async (req, res) => { try {
+    const tasksresults = await TodoTask.find({},);
+    res.render("todo.ejs", { todoTasks: tasksresults }); } catch (err) {
+          res.send(500, err);
+           res.redirect("/");
+    } });
 
 app.post('/',async (req, res) => { const todoTask = new TodoTask({
     content: req.body.content });
