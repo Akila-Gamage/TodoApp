@@ -7,5 +7,5 @@ Password: Password
 
 Connect to Cluster0
 Add your connection string into your application code:
-mongodb+srv://todoListApp:<password>@cluster0.4xn1auy.mongodb.net/?retryWrites=true&w=majority
+mongodb+srv://todoListApp:Password@cluster0.clfamkv.mongodb.net/?retryWrites=true&w=majority
 Replace <password> with the password for the todoListApp user.
